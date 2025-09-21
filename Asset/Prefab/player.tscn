@@ -1,0 +1,8 @@
+[gd_scene load_steps=2 format=3 uid="uid://bvtev6df8lqn"]
+
+[ext_resource type="PackedScene" uid="uid://b7p5m2lx3r3dm" path="res://GearEngineer/Asset/FBX/Knight.fbx" id="1_7qyrs"]
+
+[node name="Player" type="MeshInstance3D"]
+
+[node name="Knight" parent="." instance=ExtResource("1_7qyrs")]
+transform = Transform3D(0.5, 0, 0, 0, 0.5, 0, 0, 0, 0.5, 0, 0, 0)
