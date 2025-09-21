@@ -1,8 +1,9 @@
-[gd_scene load_steps=2 format=3 uid="uid://bvtev6df8lqn"]
+[gd_scene load_steps=3 format=3 uid="uid://cdlownnr6ta1m"]
 
-[ext_resource type="PackedScene" uid="uid://b7p5m2lx3r3dm" path="res://GearEngineer/Asset/FBX/Knight.fbx" id="1_7qyrs"]
+[ext_resource type="Script" uid="uid://b5jav5n1k8efs" path="res://GearEngineer/Asset/Script/CharacterController.cs" id="1_75fer"]
+[ext_resource type="PackedScene" uid="uid://c2oecf814x18c" path="res://GearEngineer/Asset/FBX/Knight.fbx" id="1_oax4d"]
 
-[node name="Player" type="MeshInstance3D"]
+[node name="Node3D" type="Node3D"]
+script = ExtResource("1_75fer")
 
-[node name="Knight" parent="." instance=ExtResource("1_7qyrs")]
-transform = Transform3D(0.5, 0, 0, 0, 0.5, 0, 0, 0, 0.5, 0, 0, 0)
+[node name="Knight" parent="." instance=ExtResource("1_oax4d")]

@@ -1,8 +1,0 @@
-[gd_scene load_steps=2 format=3 uid="uid://boy2fwhjgfhvd"]
-
-[ext_resource type="PackedScene" uid="uid://lm0flbtwl6tm" path="res://GearEngineer/Asset/FBX/platform_2x2x1_blue.fbx" id="1_it2gu"]
-
-[node name="MeshInstance3D" type="MeshInstance3D"]
-
-[node name="platform_2x2x1_blue" parent="." instance=ExtResource("1_it2gu")]
-transform = Transform3D(0.5, 0, 0, 0, 0.5, 0, 0, 0, 0.5, 0, 0, 0)
