@@ -1,16 +1,36 @@
-[gd_scene load_steps=3 format=3 uid="uid://bqcme7rnmspxl"]
+[gd_scene load_steps=7 format=3 uid="uid://bqcme7rnmspxl"]
 
 [ext_resource type="Script" uid="uid://bcvxni3407am7" path="res://GearEngineer/Asset/Script/CameraController.cs" id="1_mfy7l"]
-[ext_resource type="PackedScene" uid="uid://cdlownnr6ta1m" path="res://GearEngineer/Asset/Prefab/Player.tscn" id="1_yj0xh"]
+[ext_resource type="PackedScene" uid="uid://barjvt5jqw4a8" path="res://GearEngineer/Asset/Prefab/player.tscn" id="2_ycgwr"]
+
+[sub_resource type="PlaneMesh" id="PlaneMesh_xstts"]
+
+[sub_resource type="Environment" id="Environment_mixrc"]
+
+[sub_resource type="CameraAttributesPractical" id="CameraAttributesPractical_6tkub"]
+
+[sub_resource type="Compositor" id="Compositor_xstts"]
 
 [node name="Node3D" type="Node3D"]
 
 [node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 0.17364822, 0.9848077, 0, -0.9848077, 0.17364822, 3.2859502, 2.5677376, 0)
+light_color = Color(1, 0.8509804, 0.9019608, 1)
+light_energy = 2.732
+sky_mode = 1
 
 [node name="Camera3D" type="Camera3D" parent="." node_paths=PackedStringArray("target")]
 transform = Transform3D(1, 0, 0, 0, 0.76604444, 0.6427876, 0, -0.6427876, 0.76604444, 0, 8, 8)
 script = ExtResource("1_mfy7l")
 target = NodePath("../Player")
 
-[node name="Player" parent="." instance=ExtResource("1_yj0xh")]
+[node name="MeshInstance3D2" type="MeshInstance3D" parent="."]
+transform = Transform3D(10, 0, 0, 0, 10, 0, 0, 0, 10, 0, 0, 0)
+mesh = SubResource("PlaneMesh_xstts")
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="."]
+environment = SubResource("Environment_mixrc")
+camera_attributes = SubResource("CameraAttributesPractical_6tkub")
+compositor = SubResource("Compositor_xstts")
+
+[node name="Player" parent="." instance=ExtResource("2_ycgwr")]

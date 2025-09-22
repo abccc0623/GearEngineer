@@ -1,9 +1,9 @@
-[gd_scene load_steps=3 format=3 uid="uid://cdlownnr6ta1m"]
+[gd_scene load_steps=3 format=3 uid="uid://barjvt5jqw4a8"]
 
 [ext_resource type="Script" uid="uid://b5jav5n1k8efs" path="res://GearEngineer/Asset/Script/CharacterController.cs" id="1_75fer"]
-[ext_resource type="PackedScene" uid="uid://c2oecf814x18c" path="res://GearEngineer/Asset/FBX/Knight.fbx" id="1_oax4d"]
+[ext_resource type="PackedScene" uid="uid://cep6m7s6bgj4f" path="res://GearEngineer/Asset/FBX/knight.tscn" id="2_kxlm8"]
 
 [node name="Node3D" type="Node3D"]
 script = ExtResource("1_75fer")
 
-[node name="Knight" parent="." instance=ExtResource("1_oax4d")]
+[node name="Knight" parent="." instance=ExtResource("2_kxlm8")]
