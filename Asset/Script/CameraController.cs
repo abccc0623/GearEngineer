@@ -4,7 +4,7 @@ using System;
 public partial class CameraController : Node3D
 {
     [Export] private Node3D target;
-    [Export] private Vector3 targetDistance = new Vector3(0, 8.0f, 8.0f);
+    [Export] public Vector3 targetDistance = new Vector3(0, 8.0f, 8.0f);
     [Export] public float SmoothSpeed = 5f;
 
     public override void _PhysicsProcess(double delta)

@@ -12,6 +12,7 @@ public partial class CharacterController : Node3D
     public override void _Ready()
     {
         animationPlayer = GetNode<AnimationPlayer>("Knight/AnimationPlayer"); 
+        EventManager.Play<CameraZoomEvent>();
     }
     
     public override void _PhysicsProcess(double delta)
