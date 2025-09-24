@@ -27,4 +27,10 @@ public partial class EventManager : Node
     {
         instance.EventQueue.Enqueue(new T());
     }
+    public static void Play<T>(List<object> p) where T: Event, new()
+    {
+        var newT = new T();
+        newT.SetParameter(p);
+        instance.EventQueue.Enqueue(newT);
+    }
 }

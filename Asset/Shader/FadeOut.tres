@@ -1,0 +1,8 @@
+[gd_resource type="ShaderMaterial" load_steps=2 format=3 uid="uid://byhbvlsjo62yd"]
+
+[ext_resource type="Shader" uid="uid://ryh345kvl5x6" path="res://GearEngineer/Asset/Shader/FadeOut.gdshader" id="1_dxqal"]
+
+[resource]
+shader = ExtResource("1_dxqal")
+shader_parameter/radius = 1.0
+shader_parameter/center = Vector2(0.5, 0.5)

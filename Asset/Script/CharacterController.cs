@@ -1,6 +1,5 @@
 using Godot;
-using System;
-using System.Diagnostics;
+using System.Collections.Generic;
 
 public partial class CharacterController : Node3D
 {
@@ -9,10 +8,12 @@ public partial class CharacterController : Node3D
     private Vector3 _velocity = Vector3.Zero;
     private float rotationSpeed = 10.0f;
     private AnimationPlayer animationPlayer;
+    private Area3D area3D;
     public override void _Ready()
     {
         animationPlayer = GetNode<AnimationPlayer>("Knight/AnimationPlayer"); 
-        EventManager.Play<CameraZoomEvent>();
+        area3D = GetNode<Area3D>("Area3D");
+        area3D.Connect("body_entered", new Callable(this, "OnBodyEntered"));
     }
     
     public override void _PhysicsProcess(double delta)
@@ -27,7 +28,14 @@ public partial class CharacterController : Node3D
         // 이동 속도 적용
         _velocity.X += direction.X * Speed * (float)delta;
         _velocity.Z += direction.Z * Speed * (float)delta;
-        Position = _velocity;
+        if (direction.Z != 0 || direction.X != 0)
+        {
+            Position = _velocity;
+        }
+        else
+        {
+            _velocity = Position;
+        }
         
         //이동 중 회전 적용
         if (direction != Vector3.Zero)
@@ -40,5 +48,13 @@ public partial class CharacterController : Node3D
         {
             animationPlayer.Play("Idle");
         }
+    }
+    
+    private void OnBodyEntered(Node body)
+    {
+        GD.Print("충돌한 객체: " + body.Name);
+        EventManager.Play<CameraFadeOutEvent>();
+        EventManager.Play<PlayerTeleportEvent>(new List<object>() { new Vector3(-10,0,0) });
+        EventManager.Play<CameraFadeInEvent>();
     }
 }

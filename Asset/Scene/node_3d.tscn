@@ -1,7 +1,8 @@
-[gd_scene load_steps=7 format=3 uid="uid://bqcme7rnmspxl"]
+[gd_scene load_steps=10 format=3 uid="uid://bqcme7rnmspxl"]
 
 [ext_resource type="Script" uid="uid://bcvxni3407am7" path="res://GearEngineer/Asset/Script/CameraController.cs" id="1_mfy7l"]
 [ext_resource type="PackedScene" uid="uid://barjvt5jqw4a8" path="res://GearEngineer/Asset/Prefab/player.tscn" id="2_ycgwr"]
+[ext_resource type="Material" uid="uid://byhbvlsjo62yd" path="res://GearEngineer/Asset/Shader/FadeOut.tres" id="3_mixrc"]
 
 [sub_resource type="PlaneMesh" id="PlaneMesh_xstts"]
 
@@ -10,6 +11,10 @@
 [sub_resource type="CameraAttributesPractical" id="CameraAttributesPractical_6tkub"]
 
 [sub_resource type="Compositor" id="Compositor_xstts"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_mixrc"]
+
+[sub_resource type="BoxMesh" id="BoxMesh_6tkub"]
 
 [node name="Node3D" type="Node3D"]
 
@@ -34,3 +39,26 @@ camera_attributes = SubResource("CameraAttributesPractical_6tkub")
 compositor = SubResource("Compositor_xstts")
 
 [node name="Player" parent="." instance=ExtResource("2_ycgwr")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -9.675167, 0, 0)
+
+[node name="CanvasLayer" type="CanvasLayer" parent="."]
+
+[node name="ColorRect" type="ColorRect" parent="CanvasLayer"]
+material = ExtResource("3_mixrc")
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_stretch_ratio = 20.0
+
+[node name="Node3D" type="Node3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 9.40764, 0.52422667, 0)
+
+[node name="StaticBody3D" type="StaticBody3D" parent="Node3D"]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Node3D/StaticBody3D"]
+shape = SubResource("BoxShape3D_mixrc")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Node3D"]
+mesh = SubResource("BoxMesh_6tkub")
