@@ -1,30 +1,37 @@
 using Godot;
 using System.Collections.Generic;
+using System.Diagnostics;
 
 public partial class CharacterController : Node3D
 {
-
     [Export] public float Speed = 5f;
+    private static CharacterController characterController;
+    private static bool brakeInput = false;
     private Vector3 _velocity = Vector3.Zero;
-    private float rotationSpeed = 10.0f;
     private AnimationPlayer animationPlayer;
     private Area3D area3D;
+    private float rotationSpeed = 10.0f;
     public override void _Ready()
     {
         animationPlayer = GetNode<AnimationPlayer>("Knight/AnimationPlayer"); 
         area3D = GetNode<Area3D>("Area3D");
         area3D.Connect("body_entered", new Callable(this, "OnBodyEntered"));
+        characterController = this;
     }
+    public static Node Player => characterController;
+    public static void BrakeInput(bool brake) => brakeInput = brake;
     
     public override void _PhysicsProcess(double delta)
     {
         Vector3 direction = Vector3.Zero;
-        if (Input.IsActionPressed("move_Left")) direction.X = -1;
-        if (Input.IsActionPressed("move_right"))   direction.X = 1; 
-        if (Input.IsActionPressed("move_Up"))   direction.Z = -1; 
-        if (Input.IsActionPressed("move_Down"))   direction.Z = 1; 
-        
-        direction.Normalized();
+        if (brakeInput == false)
+        {
+            if (Input.IsActionPressed("move_Left")) direction.X = -1;
+            if (Input.IsActionPressed("move_right"))   direction.X = 1; 
+            if (Input.IsActionPressed("move_Up"))   direction.Z = -1; 
+            if (Input.IsActionPressed("move_Down"))   direction.Z = 1; 
+        }
+        direction = direction.Normalized();
         // 이동 속도 적용
         _velocity.X += direction.X * Speed * (float)delta;
         _velocity.Z += direction.Z * Speed * (float)delta;
@@ -49,7 +56,8 @@ public partial class CharacterController : Node3D
             animationPlayer.Play("Idle");
         }
     }
-    
+
+ 
     private void OnBodyEntered(Node body)
     {
         GD.Print("충돌한 객체: " + body.Name);

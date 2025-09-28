@@ -1,0 +1,9 @@
+[gd_scene load_steps=3 format=3 uid="uid://b7gup8bff0b8m"]
+
+[ext_resource type="PackedScene" uid="uid://jeidl0opsanu" path="res://GearEngineer/Asset/FBX/Factory/structure-yellow-short.fbx" id="1_3cs52"]
+[ext_resource type="Material" uid="uid://cedmaynixy4lk" path="res://GearEngineer/addons/flexible_toon_shader/conveyorMT.tres" id="2_nax5a"]
+
+[node name="structure-yellow-short" instance=ExtResource("1_3cs52")]
+
+[node name="structure_yellow_short" parent="." index="0"]
+material_override = ExtResource("2_nax5a")

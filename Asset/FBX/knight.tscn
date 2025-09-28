@@ -46,6 +46,7 @@ transform = Transform3D(-0.9999991, -5.801525e-07, 1.8684786e-06, 1.9105123e-06,
 bone_idx = 8
 
 [node name="1H_Sword_Offhand" parent="Rig/Skeleton3D/1H_Sword_Offhand" index="0"]
+visible = false
 surface_material_override/0 = ExtResource("2_3nhpd")
 
 [node name="2H_Sword" parent="Rig/Skeleton3D" index="6"]

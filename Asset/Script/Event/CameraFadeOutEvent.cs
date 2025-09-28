@@ -20,6 +20,7 @@ public partial class CameraFadeOutEvent : Event
         radius = 1.0f;
         shaderMaterial.SetShaderParameter("center", uvCenter);
         shaderMaterial.SetShaderParameter("radius", 1.0f);
+        CharacterController.BrakeInput(true);
     }
 
     protected override bool Update(float delta)
@@ -36,5 +37,8 @@ public partial class CameraFadeOutEvent : Event
         return false;
     }
 
-    protected override void End() { }
+    protected override void End()
+    {
+       
+    }
 }

@@ -1,0 +1,9 @@
+[gd_scene load_steps=3 format=3 uid="uid://b6b0ha3bt0jfj"]
+
+[ext_resource type="PackedScene" uid="uid://r6von0n6vrm0" path="res://GearEngineer/Asset/FBX/Factory/structure-corner-inner.fbx" id="1_i3ucp"]
+[ext_resource type="Material" uid="uid://cedmaynixy4lk" path="res://GearEngineer/addons/flexible_toon_shader/conveyorMT.tres" id="2_hl6m4"]
+
+[node name="structure-corner-inner" instance=ExtResource("1_i3ucp")]
+
+[node name="structure_corner_inner" parent="." index="0"]
+material_override = ExtResource("2_hl6m4")
