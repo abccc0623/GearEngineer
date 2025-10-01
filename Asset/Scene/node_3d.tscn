@@ -1,12 +1,9 @@
-[gd_scene load_steps=14 format=3 uid="uid://bqcme7rnmspxl"]
+[gd_scene load_steps=12 format=3 uid="uid://bqcme7rnmspxl"]
 
 [ext_resource type="Script" uid="uid://bcvxni3407am7" path="res://GearEngineer/Asset/Script/CameraController.cs" id="1_mfy7l"]
 [ext_resource type="PackedScene" uid="uid://barjvt5jqw4a8" path="res://GearEngineer/Asset/Prefab/player.tscn" id="2_ycgwr"]
 [ext_resource type="Material" uid="uid://byhbvlsjo62yd" path="res://GearEngineer/Asset/Shader/FadeOut.tres" id="3_mixrc"]
 [ext_resource type="Script" uid="uid://bd2ox814smtma" path="res://GearEngineer/Asset/Script/FactoryManager.cs" id="4_6tkub"]
-[ext_resource type="PackedScene" uid="uid://bb3nynnjprvhu" path="res://GearEngineer/Asset/Prefab/Factory/wall.tscn" id="5_a1bog"]
-[ext_resource type="PackedScene" uid="uid://cd07ovs5fksvc" path="res://GearEngineer/Asset/Prefab/Factory/OutPut.tscn" id="6_a1bog"]
-[ext_resource type="PackedScene" uid="uid://b6b0ha3bt0jfj" path="res://GearEngineer/Asset/Prefab/Factory/wall_inner.tscn" id="6_kc70c"]
 
 [sub_resource type="PlaneMesh" id="PlaneMesh_xstts"]
 
@@ -20,18 +17,29 @@
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_mixrc"]
 
+[sub_resource type="Environment" id="Environment_6tkub"]
+background_mode = 1
+background_color = Color(0.23137255, 0.23137255, 0.24313726, 1)
+ambient_light_energy = 2.23
+
 [node name="Node3D" type="Node3D"]
 
 [node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 0.17364822, 0.9848077, 0, -0.9848077, 0.17364822, 3.2859502, 2.5677376, 0)
 light_color = Color(1, 0.8509804, 0.9019608, 1)
-light_energy = 2.732
+light_energy = 2.652
+light_indirect_energy = 3.01
+light_volumetric_fog_energy = 3.975
+light_angular_distance = 61.96
+light_specular = 0.0
 sky_mode = 1
 
-[node name="Camera3D" type="Camera3D" parent="." node_paths=PackedStringArray("target")]
-transform = Transform3D(1, 0, 0, 0, 0.76604444, 0.6427876, 0, -0.6427876, 0.76604444, 0, 8, 8)
+[node name="PlayerCamera" type="Camera3D" parent="." node_paths=PackedStringArray("target")]
+transform = Transform3D(1, 0, 0, 0, 0.49999997, 0.86602545, 0, -0.86602545, 0.49999997, 0, 15, 8)
+current = true
 script = ExtResource("1_mfy7l")
 target = NodePath("../Player")
+targetDistance = Vector3(0, 15, 8)
 
 [node name="MeshInstance3D2" type="MeshInstance3D" parent="."]
 transform = Transform3D(10, 0, 0, 0, 10, 0, 0, 0, 10, 0, 0, 0)
@@ -60,7 +68,6 @@ size_flags_stretch_ratio = 20.0
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 9.40764, 0.52422667, 0)
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="Node3D"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -3.0988808, 0, 0)
 mesh = SubResource("BoxMesh_mixrc")
 
 [node name="StaticBody3D" type="StaticBody3D" parent="Node3D"]
@@ -69,13 +76,18 @@ mesh = SubResource("BoxMesh_mixrc")
 shape = SubResource("BoxShape3D_mixrc")
 
 [node name="MapGenerator" type="Node3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -13.48032)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -100)
 script = ExtResource("4_6tkub")
-horizontal = 30
-vertical = 30
-wall = ExtResource("5_a1bog")
-wallOuter = ExtResource("6_kc70c")
-outPutObject = ExtResource("6_a1bog")
+horizontal = 20
+vertical = 20
+
+[node name="FactoryCamera" type="Camera3D" parent="MapGenerator"]
+transform = Transform3D(0.70710677, 0.24184474, 0.664463, 0, 0.9396926, -0.34202012, -0.70710677, 0.24184474, 0.664463, 0, 15, 0)
+environment = SubResource("Environment_6tkub")
+projection = 1
+fov = 77.6
+size = 20.0
+near = 0.023
 
 [node name="EditorDebugUI" type="CanvasLayer" parent="."]
 

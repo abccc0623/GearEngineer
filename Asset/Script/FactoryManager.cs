@@ -1,93 +1,165 @@
+using System;
+using System.Collections.Generic;
 using Godot;
 using System.Text.Json;
 
-public partial class FactoryManager : Node
+public partial class FactoryManager : Node3D
 {
-    [Export] public Vector2 startPosition = Vector2.Zero;
-    [Export] public int horizontal = 0;
-    [Export] public int vertical = 0;
-    //[Export] private PackedScene floorObject = null;
-    [Export] private PackedScene wall = null;
-    [Export] private PackedScene wallOuter = null;
+    private const string assetsPath = "res://GearEngineer/Asset/Prefab/Factory/";
+    private Dictionary<string, PackedScene> assets = new Dictionary<string, PackedScene>();
+    private Camera3D camera;
+    private bool isFactoryMode = false;
+    private Node3D test;
     
-    [Export] private PackedScene outPutObject = null;
-    [Export] public string saveFilePath = "user://save.json";
+    [Export] public int horizontal = 10;
+    [Export] public int vertical = 10;
     
     public void Save()
     {
-        string json = JsonSerializer.Serialize(saveFilePath);
-        using var file = FileAccess.Open(saveFilePath, FileAccess.ModeFlags.Write);
-        file.StoreString(json);
+        //string json = JsonSerializer.Serialize(saveFilePath);
+        //using var file = FileAccess.Open(saveFilePath, FileAccess.ModeFlags.Write);
+        //file.StoreString(json);
     }
 
     public void Load()
     {
-        if (!FileAccess.FileExists(saveFilePath)) return;
 
-        using var file = FileAccess.Open(saveFilePath, FileAccess.ModeFlags.Read);
-        string json = file.GetAsText();
-
-        //saveData = JsonSerializer.Deserialize<List<Dictionary<string, object>>>(json);
-        //GD.Print("로드 완료: ", json);
     }
+
     public override void _Ready()
     {
-        
+        camera = GetNode<Camera3D>("FactoryCamera");
+        test = GetAssetsInstantiate("conveyor");
+        AddChild(test);
+    }
+    PackedScene GetAssets(string fileName)
+    {
+        if (assets.TryGetValue(fileName, out PackedScene packedScene))
+        {
+            return packedScene;
+        }
+        else
+        {
+            packedScene = GD.Load<PackedScene>(assetsPath + fileName+"/.tscn");
+            if(packedScene == null){GD.Print($"해당 에셋이 없습니다.{fileName}");}
+            assets.Add(fileName, packedScene);
+            return packedScene;
+        }
     }
     
-    public void OnButtonPressed()
+    Node3D GetAssetsInstantiate(string fileName)
     {
-        foreach (Node child in GetChildren())   child.QueueFree(); 
-        MeshInstance3D floor = new MeshInstance3D();
-        floor.Position = new Vector3((horizontal *-0.5f)+0.5f,-1,(vertical *-0.5f)+0.5f);
-        floor.Mesh = new QuadMesh();
-        floor.Scale = new Vector3(horizontal, vertical, 1);
-        floor.RotationDegrees = new Vector3(-90,0,0);
-        AddChild(floor);
-        
-        for (int i = 0; i < horizontal; i++)
+        if (assets.TryGetValue(fileName, out PackedScene packedScene))
         {
-            for (int j = 0;j < vertical; j++)
+            var target = packedScene.Instantiate<Node3D>();
+            return target;
+        }
+        else
+        {
+            packedScene = GD.Load<PackedScene>(assetsPath + fileName+".tscn");
+            if(packedScene == null){GD.Print($"해당 에셋이 없습니다.{fileName}");}
+            assets.Add(fileName, packedScene);
+            var target = packedScene.Instantiate<Node3D>();
+            return target;
+        }
+    }
+
+    public override void _Process(double delta)
+    {
+        if (isFactoryMode == true)
+        {
+            var position = GetMouseWorldPosition(camera);
+            if (position.HasValue)
             {
-                var createPosition = new Vector3(-i,0,-j);
-                if (j == 1 && i == 0)
+                var local = this.ToLocal(position.Value);
+                if(local.X < 0) local.X = 0;
+                else if(local.X >= horizontal - 1) local.X = horizontal - 1;
+                
+                if(local.Z < 0) local.Z = 0;
+                else if(local.Z >= vertical - 1) local.Z = vertical - 1;
+                
+                local =new Vector3(Mathf.Round(local.X), Mathf.Round(local.Y), Mathf.Round(local.Z));
+                test.Position = local;
+            }
+           
+        }
+    }
+    
+    void Generator()
+    {
+        Node3D cameraTarget = null;
+        for (int i = -1; i < horizontal; i++)
+        {
+            for (int j = -1; j < vertical; j++)
+            {
+                if (i == -1 || i == horizontal-1 || j == -1 || j == vertical-1)
                 {
-                    var target = outPutObject.Instantiate<Node3D>();
-                    target.Position = createPosition;
-                    target.RotationDegrees = new Vector3(0, 90, 0);
-                    AddChild(target);
+                    //위 수평, 왼쪽 수직, 두 수평과 수직이 만나는 모서리를 체크 
+                    if (i == horizontal-1 && j == vertical-1) cameraTarget = CreateEdgeWall(i, j);
+                    else if (i == horizontal-1 &&  j != -1)  CreateHorizontalWall(i, j);
+                    else if (j == vertical-1   &&  i != -1)  CreateVerticalWall(i, j);
                 }
-                else if (j == horizontal - 1 && i == 0)
+                else
                 {
-                    //왼쪽 위
-                    var target = wallOuter.Instantiate<Node3D>();
-                    target.RotationDegrees = new Vector3(0, 90, 0);
-                    target.Position = createPosition;
-                    AddChild(target);
-                }
-                else if (j == horizontal - 1 && i == vertical-1)
-                {
-                    //오른쪽 위
-                    var target = wallOuter.Instantiate<Node3D>();
-                    target.RotationDegrees = new Vector3(0, 180, 0);
-                    target.Position = createPosition;
-                    AddChild(target);
-                }
-                else if (i == 0)
-                {
-                    var target = wall.Instantiate<Node3D>();
-                    target.RotationDegrees = new Vector3(0, 90, 0);
-                    target.Position = createPosition;
-                    AddChild(target);
-                }
-                else if (j == vertical - 1)
-                {
-                    var target = wall.Instantiate<Node3D>();
-                    target.RotationDegrees = new Vector3(0, 180, 0);
-                    target.Position = createPosition;
+                    var target =GetAssetsInstantiate("ground");
+                    target.Position = new Vector3(i, 0, j);
                     AddChild(target);
                 }
             }
         }
+        camera.Size = 20;
+        camera.Position = new Vector3(0, camera.Size *0.5f, 0);
+        camera.RotationDegrees = new Vector3(-30, -135, 0);
+        camera.Current = true;
+        isFactoryMode = true;
+    }
+
+    Node3D CreateVerticalWall(int h,int v)
+    {
+        var target =GetAssetsInstantiate("wall");
+        target.Position = new Vector3(h, 0, v);
+        AddChild(target);
+        target.RotationDegrees = new Vector3(0, 0, 0);
+        return target;
+    }
+    Node3D CreateHorizontalWall(int h,int v)
+    {
+        var target =GetAssetsInstantiate("wall");
+        target.Position = new Vector3(h, 0, v);
+        AddChild(target);
+        target.RotationDegrees = new Vector3(0, 90, 0);
+        return target;
+    }
+    Node3D CreateEdgeWall(int h,int v)
+    {
+        var target =GetAssetsInstantiate("wall_inner");
+        target.Position = new Vector3(h, 0, v);
+        AddChild(target);
+        target.RotationDegrees = new Vector3(0, 0, 0);
+        return target;
+    }
+    
+    public Vector3? GetMouseWorldPosition(Camera3D camera)
+    {
+        var viewport = GetViewport();
+        var mousePos = viewport.GetMousePosition();
+
+        // 레이 시작점과 방향 얻기
+        Vector3 rayOrigin = camera.ProjectRayOrigin(mousePos);
+        Vector3 rayDir = camera.ProjectRayNormal(mousePos);
+
+        // 평면: y = 0
+        float t = -rayOrigin.Y / rayDir.Y;
+
+        if (t < 0)
+            return null; // 평면과 교차하지 않음 (위쪽만 보는 경우)
+
+        Vector3 hitPos = rayOrigin + rayDir * t;
+        return hitPos;
+    }
+    
+    public void OnButtonPressed()
+    {
+        Generator();
     }
 }
