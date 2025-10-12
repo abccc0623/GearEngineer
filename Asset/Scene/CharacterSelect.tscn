@@ -1,0 +1,130 @@
+[gd_scene load_steps=7 format=3 uid="uid://bgav1nye6cq6r"]
+
+[ext_resource type="Texture2D" uid="uid://bt3bdougm5vvl" path="res://GearEngineer/Asset/Texture/UI/metalPanel.png" id="1_i073h"]
+[ext_resource type="Script" uid="uid://di0w77bh4dsqv" path="res://GearEngineer/Asset/Script/CharacterSelect/WeaponSelect.cs" id="1_kdsbi"]
+[ext_resource type="Texture2D" uid="uid://cc5w8ndnjuo7i" path="res://GearEngineer/Asset/Texture/UI/element_purple_rectangle.png" id="2_20ea2"]
+[ext_resource type="FontFile" uid="uid://drqqi5m6onxh0" path="res://GearEngineer/Asset/Fonts/kenvector_future_thin.ttf" id="3_kdsbi"]
+[ext_resource type="Texture2D" uid="uid://i33pmsnikqab" path="res://GearEngineer/Asset/Texture/UI/metalPanel_plate.png" id="4_x0teg"]
+[ext_resource type="Texture2D" uid="uid://70m1xwxfeelu" path="res://GearEngineer/Asset/Texture/UI/blue.png" id="6_x0teg"]
+
+[node name="CharacterSelect" type="Node3D"]
+
+[node name="CanvasLayer" type="CanvasLayer" parent="."]
+layer = 10
+follow_viewport_enabled = true
+
+[node name="Panel" type="Panel" parent="CanvasLayer"]
+clip_contents = true
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_kdsbi")
+
+[node name="NinePatchRect" type="NinePatchRect" parent="CanvasLayer/Panel"]
+texture_filter = 1
+clip_contents = true
+layout_direction = 2
+layout_mode = 1
+anchors_preset = 4
+anchor_top = 0.5
+anchor_bottom = 0.5
+offset_left = 25.0
+offset_top = -279.0
+offset_right = 425.0
+offset_bottom = 271.0
+grow_vertical = 2
+texture = ExtResource("1_i073h")
+patch_margin_left = 10
+patch_margin_top = 10
+patch_margin_right = 10
+patch_margin_bottom = 10
+
+[node name="Title" type="NinePatchRect" parent="CanvasLayer/Panel/NinePatchRect"]
+texture_filter = 1
+clip_contents = true
+layout_mode = 0
+offset_left = 50.0
+offset_top = 18.0
+offset_right = 350.0
+offset_bottom = 63.0
+grow_horizontal = 2
+grow_vertical = 2
+pivot_offset = Vector2(150, 15)
+texture = ExtResource("2_20ea2")
+patch_margin_left = 9
+patch_margin_top = 9
+patch_margin_right = 9
+patch_margin_bottom = 9
+
+[node name="TitleText" type="Label" parent="CanvasLayer/Panel/NinePatchRect/Title"]
+layout_mode = 0
+offset_right = 300.0
+offset_bottom = 45.0
+theme_override_fonts/font = ExtResource("3_kdsbi")
+text = "Select Weapon"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Content" type="NinePatchRect" parent="CanvasLayer/Panel/NinePatchRect"]
+layout_mode = 0
+offset_left = 25.0
+offset_top = 76.0
+offset_right = 375.0
+offset_bottom = 476.0
+pivot_offset = Vector2(175, 0)
+texture = ExtResource("4_x0teg")
+patch_margin_left = 5
+patch_margin_top = 5
+patch_margin_right = 5
+patch_margin_bottom = 5
+
+[node name="GridContainer" type="GridContainer" parent="CanvasLayer/Panel/NinePatchRect/Content"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 25.0
+offset_top = 25.0
+offset_right = -25.0
+offset_bottom = -25.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/h_separation = 10
+columns = 3
+
+[node name="Button" type="Button" parent="CanvasLayer/Panel/NinePatchRect"]
+layout_mode = 0
+offset_left = 55.0
+offset_top = 488.0
+offset_right = 355.0
+offset_bottom = 533.0
+
+[node name="Start" type="NinePatchRect" parent="CanvasLayer/Panel/NinePatchRect/Button"]
+layout_mode = 0
+offset_right = 300.0
+offset_bottom = 45.0
+texture = ExtResource("6_x0teg")
+patch_margin_left = 9
+patch_margin_top = 9
+patch_margin_right = 9
+patch_margin_bottom = 9
+
+[node name="Label" type="Label" parent="CanvasLayer/Panel/NinePatchRect/Button/Start"]
+layout_mode = 0
+offset_right = 300.0
+offset_bottom = 45.0
+theme_override_fonts/font = ExtResource("3_kdsbi")
+theme_override_font_sizes/font_size = 25
+text = "Start Game"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
+
+[node name="Camera3D" type="Camera3D" parent="."]
+transform = Transform3D(-4.371139e-08, 0, 1, 0, 1, 0, -1, 0, -4.371139e-08, 2.856, 0.907, 1)
+
+[connection signal="button_down" from="CanvasLayer/Panel/NinePatchRect/Button" to="CanvasLayer/Panel" method="PlayGame"]
+[connection signal="mouse_entered" from="CanvasLayer/Panel/NinePatchRect/Button" to="CanvasLayer/Panel/NinePatchRect/Button/Start" method="get_texture"]

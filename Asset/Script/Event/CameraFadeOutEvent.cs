@@ -9,7 +9,7 @@ public partial class CameraFadeOutEvent : Event
     {
         if (shaderMaterial == null || colorRect == null)
         {
-            colorRect = GetNode<ColorRect>("/root/Node3D/CanvasLayer/ColorRect");
+            colorRect = GetNode<ColorRect>("FadeInOut/FadeInOutColorRect");
             shaderMaterial = colorRect.Material as ShaderMaterial;
         }
         
@@ -25,7 +25,7 @@ public partial class CameraFadeOutEvent : Event
 
     protected override bool Update(float delta)
     {
-        if (radius < 0.0f)
+        if (radius < -1.0f)
         {
             return true;
         }

@@ -50,5 +50,10 @@ public  abstract partial class Event : RefCounted
         return manager.GetNode<T>(path);
     }
 
+    protected SceneTree GetRoot()
+    {
+        return manager.GetTree();
+    }
+
 }
 

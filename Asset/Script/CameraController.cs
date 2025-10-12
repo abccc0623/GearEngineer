@@ -1,11 +1,17 @@
 using Godot;
 using System;
 
-public partial class CameraController : Node3D
+public partial class CameraController : Camera3D
 {
-    [Export] private Node3D target;
-    [Export] public Vector3 targetDistance = new Vector3(0, 8.0f, 8.0f);
+    [Export] public Node3D target;
     [Export] public float SmoothSpeed = 5f;
+     public Vector3 targetDistance;
+
+    public override void _EnterTree()
+    {
+        targetDistance = new Vector3(0,10,5);
+        RotationDegrees = new Vector3(-57.3f, 0, 0);
+    }
 
     public override void _PhysicsProcess(double delta)
     {

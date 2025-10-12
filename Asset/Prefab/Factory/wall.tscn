@@ -1,7 +1,7 @@
 [gd_scene load_steps=3 format=3 uid="uid://bb3nynnjprvhu"]
 
 [ext_resource type="PackedScene" uid="uid://b1xnl1i4bu2vi" path="res://GearEngineer/Asset/FBX/Factory/structure-wall.fbx" id="1_su6s6"]
-[ext_resource type="Material" uid="uid://cedmaynixy4lk" path="res://GearEngineer/addons/flexible_toon_shader/conveyorMT.tres" id="2_777qq"]
+[ext_resource type="Material" uid="uid://cedmaynixy4lk" path="res://addons/flexible_toon_shader/conveyorMT.tres" id="2_777qq"]
 
 [node name="structure-wall" instance=ExtResource("1_su6s6")]
 

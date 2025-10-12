@@ -10,7 +10,7 @@ public partial class CameraFadeInEvent : Event
     {
         if (shaderMaterial == null || colorRect == null)
         {
-            colorRect = GetNode<ColorRect>("/root/Node3D/CanvasLayer/ColorRect");
+            colorRect = GetNode<ColorRect>("FadeInOut/FadeInOutColorRect");
             shaderMaterial = colorRect.Material as ShaderMaterial;
         }
         

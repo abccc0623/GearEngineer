@@ -1,0 +1,62 @@
+[gd_scene load_steps=4 format=3 uid="uid://o7bwucs2v53h"]
+
+[ext_resource type="Texture2D" uid="uid://70m1xwxfeelu" path="res://GearEngineer/Asset/Texture/UI/blue.png" id="1_1hu68"]
+[ext_resource type="Script" uid="uid://dfmgo51jjd5jd" path="res://GearEngineer/Asset/Script/CharacterSelect/WeaponItem.cs" id="1_7nypr"]
+[ext_resource type="Texture2D" uid="uid://cw12jqcxu5fui" path="res://GearEngineer/Asset/Texture/UI/element_grey_square_glossy.png" id="2_7nypr"]
+
+[node name="WeaponItem" type="TextureRect"]
+custom_minimum_size = Vector2(85, 89)
+script = ExtResource("1_7nypr")
+
+[node name="TextureRect" type="TextureRect" parent="."]
+layout_mode = 0
+offset_right = 85.0
+offset_bottom = 89.0
+texture = ExtResource("1_1hu68")
+
+[node name="NinePatchRect" type="NinePatchRect" parent="."]
+custom_minimum_size = Vector2(75, 75)
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -37.5
+offset_top = -39.5
+offset_right = 37.5
+offset_bottom = 35.5
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("2_7nypr")
+patch_margin_left = 8
+patch_margin_top = 8
+patch_margin_right = 8
+patch_margin_bottom = 8
+
+[node name="Button" type="Button" parent="NinePatchRect"]
+modulate = Color(1, 1, 1, 0)
+custom_minimum_size = Vector2(75, 75)
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -37.5
+offset_top = -37.5
+offset_right = 37.5
+offset_bottom = 37.5
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="icon" type="TextureRect" parent="NinePatchRect"]
+texture_filter = 2
+layout_mode = 0
+offset_left = 8.0
+offset_top = 8.0
+offset_right = 67.0
+offset_bottom = 67.0
+mouse_filter = 2
+expand_mode = 1
+stretch_mode = 6

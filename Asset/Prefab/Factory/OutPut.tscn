@@ -1,7 +1,7 @@
 [gd_scene load_steps=9 format=3 uid="uid://cd07ovs5fksvc"]
 
 [ext_resource type="PackedScene" uid="uid://bop4ebk5dtoye" path="res://GearEngineer/Asset/FBX/Factory/structure-doorway.fbx" id="1_s82ke"]
-[ext_resource type="Material" uid="uid://cedmaynixy4lk" path="res://GearEngineer/addons/flexible_toon_shader/conveyorMT.tres" id="2_fjjiv"]
+[ext_resource type="Material" uid="uid://cedmaynixy4lk" path="res://addons/flexible_toon_shader/conveyorMT.tres" id="2_fjjiv"]
 [ext_resource type="PackedScene" uid="uid://cwbwaxdnphtb3" path="res://GearEngineer/Asset/Prefab/Factory/conveyor.tscn" id="2_tbs4y"]
 [ext_resource type="PackedScene" uid="uid://msqvm5dgfycq" path="res://GearEngineer/Asset/Prefab/Factory/conveyor_base.tscn" id="3_fjjiv"]
 

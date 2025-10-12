@@ -1,7 +1,7 @@
 [gd_scene load_steps=4 format=3 uid="uid://cwbwaxdnphtb3"]
 
 [ext_resource type="PackedScene" uid="uid://t6v5j70rfig" path="res://GearEngineer/Asset/FBX/Factory/conveyor-bars-stripe-side.fbx" id="1_c3nyp"]
-[ext_resource type="Material" uid="uid://cedmaynixy4lk" path="res://GearEngineer/addons/flexible_toon_shader/conveyorMT.tres" id="2_aiydl"]
+[ext_resource type="Material" uid="uid://cedmaynixy4lk" path="res://addons/flexible_toon_shader/conveyorMT.tres" id="2_aiydl"]
 [ext_resource type="PackedScene" uid="uid://b7gup8bff0b8m" path="res://GearEngineer/Asset/Prefab/Factory/structure.tscn" id="3_aiydl"]
 
 [node name="conveyor-bars-stripe-side" instance=ExtResource("1_c3nyp")]

@@ -1,6 +1,7 @@
 using Godot;
 using System.Collections.Generic;
 using System.Diagnostics;
+using System.Runtime.CompilerServices;
 
 public partial class CharacterController : Node3D
 {
@@ -8,14 +9,15 @@ public partial class CharacterController : Node3D
     private static CharacterController characterController;
     private static bool brakeInput = false;
     private Vector3 _velocity = Vector3.Zero;
+    
     private AnimationPlayer animationPlayer;
-    private Area3D area3D;
+    private CharacterAnimation characterAnimation;
+    
     private float rotationSpeed = 10.0f;
     public override void _Ready()
     {
-        animationPlayer = GetNode<AnimationPlayer>("Knight/AnimationPlayer"); 
-        area3D = GetNode<Area3D>("Area3D");
-        area3D.Connect("body_entered", new Callable(this, "OnBodyEntered"));
+        animationPlayer = GetNode<AnimationPlayer>("AnimationPlayer"); 
+        characterAnimation = GetNode<CharacterAnimation>("AnimationTree");
         characterController = this;
     }
     public static Node Player => characterController;
@@ -49,11 +51,11 @@ public partial class CharacterController : Node3D
         {
             Basis basis = Basis.LookingAt(-direction, Vector3.Up);
             Basis = Basis.Slerp(basis, rotationSpeed * (float)delta);
-            animationPlayer.Play("Walking_A");
+            characterAnimation.IsRunning = true;
         }
         else
         {
-            animationPlayer.Play("Idle");
+            characterAnimation.IsRunning = false;
         }
     }
 
@@ -65,4 +67,5 @@ public partial class CharacterController : Node3D
         EventManager.Play<PlayerTeleportEvent>(new List<object>() { new Vector3(-10,0,0) });
         EventManager.Play<CameraFadeInEvent>();
     }
+   
 }

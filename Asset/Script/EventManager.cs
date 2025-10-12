@@ -11,6 +11,7 @@ public partial class EventManager : Node
     {
         instance = this;
         EventQueue = new Queue<Event>();
+        CreateCanvasLayer();
     }
     public override void _Process(double delta)
     {
@@ -27,10 +28,29 @@ public partial class EventManager : Node
     {
         instance.EventQueue.Enqueue(new T());
     }
+    
     public static void Play<T>(List<object> p) where T: Event, new()
     {
         var newT = new T();
         newT.SetParameter(p);
         instance.EventQueue.Enqueue(newT);
+    }
+
+
+    void CreateCanvasLayer()
+    {
+        CanvasLayer canvasLayer = new CanvasLayer();
+        ColorRect colorRect = new ColorRect();
+        
+        canvasLayer.AddChild(colorRect);
+        this.AddChild(canvasLayer);
+        canvasLayer.Layer = 10;
+        canvasLayer.Name = "FadeInOut";
+        colorRect.Name = "FadeInOutColorRect";
+        
+        colorRect.SetAnchorsPreset(Control.LayoutPreset.FullRect);
+        colorRect.SetOffsetsPreset(Control.LayoutPreset.FullRect);
+        colorRect.Visible = true;
+        colorRect.Material = GD.Load<ShaderMaterial>("res://GearEngineer/Asset/Shader/FadeOut.tres");
     }
 }
