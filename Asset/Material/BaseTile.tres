@@ -1,0 +1,6 @@
+[gd_resource type="StandardMaterial3D" load_steps=2 format=3 uid="uid://b4rrp48yyafqf"]
+
+[ext_resource type="Texture2D" uid="uid://bvnykid5odgyf" path="res://GearEngineer/Asset/Texture/Map/dungeon_texture.png" id="1_3sbhc"]
+
+[resource]
+albedo_texture = ExtResource("1_3sbhc")
