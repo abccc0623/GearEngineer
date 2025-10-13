@@ -7,13 +7,14 @@
 background_mode = 1
 background_color = Color(0.019607844, 0.019607844, 0.019607844, 1)
 ambient_light_source = 3
-ambient_light_color = Color(0.101960786, 0.101960786, 0.101960786, 1)
+ambient_light_color = Color(0.025146186, 0, 0, 1)
 ambient_light_sky_contribution = 0.0
-ambient_light_energy = 0.2
-tonemap_mode = 3
+ambient_light_energy = 0.6
 ssao_enabled = true
-ssao_intensity = 1.2
-ssil_enabled = true
+ssao_radius = 0.5
+ssao_intensity = 1.0
+ssil_radius = 5.75
+glow_enabled = true
 fog_enabled = true
 fog_light_color = Color(0.0627451, 0.050980393, 0.039215688, 1)
 fog_sky_affect = 0.0
@@ -25,18 +26,21 @@ fog_sky_affect = 0.0
 [node name="InGame" type="Node3D"]
 
 [node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
-transform = Transform3D(0.82898396, -0.5178165, 0.2113091, 0.08682408, 0.4924038, 0.8660254, -0.55249166, -0.6995744, 0.45315382, 3.2859502, 2.5677376, 0)
-light_color = Color(0.83137256, 0.7647059, 0.62352943, 1)
+transform = Transform3D(0.8196991, -0.57047415, 0.051504202, 0.021162387, 0.120017864, 0.99254614, -0.5724034, -0.8124992, 0.11045112, 3.2859502, 15.1981125, 0)
+light_color = Color(1, 0.97633153, 0.95468724, 1)
 light_energy = 0.6
 light_indirect_energy = 0.3
 light_volumetric_fog_energy = 3.975
 light_angular_distance = 61.96
 light_specular = 0.0
 shadow_enabled = true
-shadow_bias = 0.05
+shadow_bias = 0.55
 shadow_normal_bias = 0.05
 shadow_reverse_cull_face = true
+shadow_transmittance_bias = -5.23
 shadow_opacity = 0.8
+shadow_blur = 1.5
+directional_shadow_pancake_size = 9.7
 sky_mode = 1
 
 [node name="WorldEnvironment" type="WorldEnvironment" parent="."]
@@ -57,7 +61,7 @@ data = {
 }
 
 [node name="OmniLight3D" type="OmniLight3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -17.853172, 2.8732543, 0)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -18.23024, 2.8732543, 0)
 light_color = Color(1, 0.72156864, 0.41960785, 1)
 light_energy = 1.5
 omni_attenuation = 1.2

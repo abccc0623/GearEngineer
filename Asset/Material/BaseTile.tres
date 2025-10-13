@@ -3,4 +3,8 @@
 [ext_resource type="Texture2D" uid="uid://bvnykid5odgyf" path="res://GearEngineer/Asset/Texture/Map/dungeon_texture.png" id="1_3sbhc"]
 
 [resource]
+albedo_color = Color(1, 1, 0.9776916, 1)
 albedo_texture = ExtResource("1_3sbhc")
+metallic = 0.1
+roughness = 0.6
+emission_energy_multiplier = 0.0
