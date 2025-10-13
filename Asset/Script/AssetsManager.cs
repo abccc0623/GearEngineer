@@ -11,31 +11,56 @@ public enum AssetKey
 
 public partial class AssetsManager : Node
 {
+    const string sword = "1_Sword";
+    const string axe = "2_Axe";
+
+    private const string weaponTexturePath = "res://GearEngineer/Asset/Texture/Weapon/";
+    private const string weaponObjectPath = "res://GearEngineer/Asset/Prefab/Weapon/";
+    private const string characterObjectPath = "res://GearEngineer/Asset/Prefab/Character/";
+    
     public Dictionary<AssetKey, Dictionary<string, RefCounted>> Assets = new();
+    
+    
+    
     public override void _EnterTree()
     {
-        LoadAssets<Texture2D>("res://GearEngineer/Asset/Texture/Weapon", AssetKey.WeaponTexture);
-        LoadAssets<PackedScene>("res://GearEngineer/Asset/Prefab/Weapon", AssetKey.WeaponObject);
-        LoadAssets<PackedScene>("res://GearEngineer/Asset/Prefab/Character", AssetKey.CharacterObject);
+        string[] weaponTexturePaths = new []
+        {
+            weaponTexturePath + sword + ".png",
+            weaponTexturePath + axe + ".png",
+        };
+        
+        string[] weaponObjectPaths = new []
+        {
+            weaponObjectPath + sword + ".tscn",
+            weaponObjectPath + axe+ ".tscn",
+        };
+        
+        string[] characterObjectPaths = new []
+        {
+            characterObjectPath + sword+ ".tscn",
+            characterObjectPath + axe+ ".tscn",
+        };
+
+        LoadAssets<Texture2D>(weaponTexturePaths, AssetKey.WeaponTexture);
+        LoadAssets<PackedScene>(weaponObjectPaths, AssetKey.WeaponObject);
+        LoadAssets<PackedScene>(characterObjectPaths, AssetKey.CharacterObject);
     }
 
-    public void LoadAssets<T>(string assetsPath, AssetKey key) where T : RefCounted
+    public void LoadAssets<T>(string[] assetPaths, AssetKey key) where T : RefCounted
     {
         Assets.Add(key, new Dictionary<string, RefCounted>());
-        string absPath = ProjectSettings.GlobalizePath(assetsPath);
-        if (Directory.Exists(absPath))
+        foreach (var path in assetPaths)
         {
-            var loader = Directory.GetFiles(absPath);
-            for (var i = 0; i < loader.Length; i++)
+            var resource = GD.Load<T>(path);
+            string name = Path.GetFileNameWithoutExtension(path);
+            Assets[key].Add(name, resource);
+            if (resource == null)
             {
-                if (loader[i].Contains(".import")) continue;
-                string name = Path.GetFileNameWithoutExtension(loader[i]);
-                var texture2d = GD.Load<T>(loader[i]);
-                Assets[key].Add(name, texture2d);
+                GD.Print(path);
             }
         }
     }
-
     public Dictionary<string, RefCounted> Get(AssetKey key)
     {
         if (Assets.TryGetValue(key, out var value))

@@ -25,7 +25,7 @@ fog_sky_affect = 0.0
 [node name="InGame" type="Node3D"]
 
 [node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 0.17364822, 0.9848077, 0, -0.9848077, 0.17364822, 3.2859502, 2.5677376, 0)
+transform = Transform3D(0.82898396, -0.5178165, 0.2113091, 0.08682408, 0.4924038, 0.8660254, -0.55249166, -0.6995744, 0.45315382, 3.2859502, 2.5677376, 0)
 light_color = Color(0.83137256, 0.7647059, 0.62352943, 1)
 light_energy = 0.6
 light_indirect_energy = 0.3
@@ -34,6 +34,8 @@ light_angular_distance = 61.96
 light_specular = 0.0
 shadow_enabled = true
 shadow_bias = 0.05
+shadow_normal_bias = 0.05
+shadow_reverse_cull_face = true
 shadow_opacity = 0.8
 sky_mode = 1
 

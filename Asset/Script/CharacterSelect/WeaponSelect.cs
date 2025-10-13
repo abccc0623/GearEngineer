@@ -54,7 +54,7 @@ public partial class WeaponSelect : Node
     private void AllReady()
     {
         var target = itemParent.GetChild<WeaponItem>(0);
-        target.Click();
+        target?.Click();
     }
 
     void ChangeItemClick(string itemName)
@@ -79,23 +79,22 @@ public partial class WeaponSelect : Node
     void LoadItem()
     {
         var target =assetsManager.Get(AssetKey.WeaponTexture);
-
-        //json형태로 저장된 데이터를 로드후 아이템 생성
-        string path = "res://GearEngineer/Asset/FactoryMap";
-        string absPath = ProjectSettings.GlobalizePath(path);
-        if (Directory.Exists(absPath))
+        const string folderPath = "res://GearEngineer/Asset/FactoryMap/";
+        string[] paths = new[]
         {
-            var loader = Directory.GetFiles(absPath);
-            for (var i = 0; i < loader.Length; i++)
-            {
-                string name = Path.GetFileNameWithoutExtension(loader[i]);
-                var item = weaponItem.Instantiate<WeaponItem>();
-                var texture = (Texture2D)target[name];
-                item.SetItemName(name,texture);
-                item.ClickAction = ChangeItemClick;
-                itemUIList.Add(name,item);
-                itemParent.AddChild(item);
-            }
+            folderPath+"1_Sword.json",
+            folderPath+"2_Axe.json",
+        }; 
+        
+        for (var i = 0; i < paths.Length; i++)
+        {
+            string name = Path.GetFileNameWithoutExtension(paths[i]);
+            var item = weaponItem.Instantiate<WeaponItem>();
+            var texture = (Texture2D)target[name];
+            item.SetItemName(name,texture);
+            item.ClickAction = ChangeItemClick;
+            itemUIList.Add(name,item);
+            itemParent.AddChild(item);
         }
     }
    
