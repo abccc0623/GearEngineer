@@ -11,13 +11,16 @@ public partial class CharacterController : Node3D
     private Vector3 _velocity = Vector3.Zero;
     
     private AnimationPlayer animationPlayer;
-    private CharacterAnimation characterAnimation;
+    private GearEngineer.GearEngineer.Asset.Script.Animation.CharacterAnimation characterAnimation;
     
     private float rotationSpeed = 10.0f;
+    
+    public Vector3 direction;
+    
     public override void _Ready()
     {
         animationPlayer = GetNode<AnimationPlayer>("AnimationPlayer"); 
-        characterAnimation = GetNode<CharacterAnimation>("AnimationTree");
+        animationPlayer.SpeedScale = 10.0f;
         characterController = this;
     }
     public static Node Player => characterController;
@@ -25,7 +28,7 @@ public partial class CharacterController : Node3D
     
     public override void _PhysicsProcess(double delta)
     {
-        Vector3 direction = Vector3.Zero;
+        direction = Vector3.Zero;
         if (brakeInput == false)
         {
             if (Input.IsActionPressed("move_Left")) direction.X = -1;
@@ -51,21 +54,6 @@ public partial class CharacterController : Node3D
         {
             Basis basis = Basis.LookingAt(-direction, Vector3.Up);
             Basis = Basis.Slerp(basis, rotationSpeed * (float)delta);
-            characterAnimation.IsRunning = true;
-        }
-        else
-        {
-            characterAnimation.IsRunning = false;
         }
     }
-
- 
-    private void OnBodyEntered(Node body)
-    {
-        GD.Print("충돌한 객체: " + body.Name);
-        EventManager.Play<CameraFadeOutEvent>();
-        EventManager.Play<PlayerTeleportEvent>(new List<object>() { new Vector3(-10,0,0) });
-        EventManager.Play<CameraFadeInEvent>();
-    }
-   
 }

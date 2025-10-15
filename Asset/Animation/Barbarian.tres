@@ -1,29 +1,33 @@
-[gd_resource type="AnimationNodeStateMachine" load_steps=6 format=3 uid="uid://c0fi2al6bpc7f"]
+[gd_resource type="AnimationNodeStateMachine" load_steps=7 format=3 uid="uid://c0fi2al6bpc7f"]
 
 [sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_dr1c1"]
 animation = &"Idle"
 
-[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_e74ll"]
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_imcct"]
 animation = &"Running_B"
 
-[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_imcct"]
-xfade_time = 0.1
-advance_mode = 2
-advance_expression = "IsRunning
-"
-
-[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_hs883"]
-xfade_time = 0.1
-advance_mode = 2
-advance_expression = "IsRunning ==false
-"
+[sub_resource type="AnimationNodeStateMachine" id="AnimationNodeStateMachine_dr1c1"]
 
 [sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_dr1c1"]
 advance_mode = 2
 
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_e74ll"]
+xfade_time = 0.1
+switch_mode = 1
+advance_mode = 2
+advance_expression = "IsRunning"
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_imcct"]
+xfade_time = 0.1
+switch_mode = 1
+advance_mode = 2
+advance_expression = "IsRunning == false"
+
 [resource]
 states/Idle/node = SubResource("AnimationNodeAnimation_dr1c1")
-states/Idle/position = Vector2(303, 100)
-states/Running_B/node = SubResource("AnimationNodeAnimation_e74ll")
-states/Running_B/position = Vector2(483, 100)
-transitions = ["Idle", "Running_B", SubResource("AnimationNodeStateMachineTransition_imcct"), "Running_B", "Idle", SubResource("AnimationNodeStateMachineTransition_hs883"), "Start", "Idle", SubResource("AnimationNodeStateMachineTransition_dr1c1")]
+states/Idle/position = Vector2(304, 100)
+states/Running_B/node = SubResource("AnimationNodeAnimation_imcct")
+states/Running_B/position = Vector2(688, 92)
+states/test/node = SubResource("AnimationNodeStateMachine_dr1c1")
+states/test/position = Vector2(330, 183)
+transitions = ["Start", "Idle", SubResource("AnimationNodeStateMachineTransition_dr1c1"), "Idle", "Running_B", SubResource("AnimationNodeStateMachineTransition_e74ll"), "Running_B", "Idle", SubResource("AnimationNodeStateMachineTransition_imcct")]

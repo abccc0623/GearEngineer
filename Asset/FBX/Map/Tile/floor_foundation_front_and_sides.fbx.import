@@ -3,13 +3,13 @@
 importer="scene"
 importer_version=1
 type="PackedScene"
-uid="uid://b1ip1tlm8kdq1"
-path="res://.godot/imported/floor_tile_large.fbx-fac7cb668199f0264c132290c5a11780.scn"
+uid="uid://doeoc8lm2u6te"
+path="res://.godot/imported/floor_foundation_front_and_sides.fbx-85b5c971a532d30be4e895b0776a98f5.scn"
 
 [deps]
 
-source_file="res://GearEngineer/Asset/FBX/Map/Tile/floor_tile_large.fbx"
-dest_files=["res://.godot/imported/floor_tile_large.fbx-fac7cb668199f0264c132290c5a11780.scn"]
+source_file="res://GearEngineer/Asset/FBX/Map/Tile/floor_foundation_front_and_sides.fbx"
+dest_files=["res://.godot/imported/floor_foundation_front_and_sides.fbx-85b5c971a532d30be4e895b0776a98f5.scn"]
 
 [params]
 
@@ -22,8 +22,8 @@ nodes/import_as_skeleton_bones=false
 nodes/use_name_suffixes=true
 nodes/use_node_type_suffixes=true
 meshes/ensure_tangents=true
-meshes/generate_lods=false
-meshes/create_shadow_meshes=false
+meshes/generate_lods=true
+meshes/create_shadow_meshes=true
 meshes/light_baking=1
 meshes/lightmap_texel_size=0.2
 meshes/force_disable_compression=false
@@ -37,13 +37,7 @@ import_script/path=""
 materials/extract=0
 materials/extract_format=0
 materials/extract_path=""
-_subresources={
-"nodes": {
-"PATH:floor_tile_large": {
-"mesh_instance/cast_shadow": 0
-}
-}
-}
+_subresources={}
 fbx/importer=0
 fbx/allow_geometry_helper_nodes=false
 fbx/embedded_image_handling=1

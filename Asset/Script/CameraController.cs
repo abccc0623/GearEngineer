@@ -7,10 +7,15 @@ public partial class CameraController : Camera3D
     [Export] public float SmoothSpeed = 5f;
      public Vector3 targetDistance;
 
-    public override void _EnterTree()
+     public override void _Ready()
+     {
+    
+     }
+
+     public override void _EnterTree()
     {
-        targetDistance = new Vector3(0,10,5);
-        RotationDegrees = new Vector3(-57.3f, 0, 0);
+        targetDistance = new Vector3(0,8.0f,8.5f);
+        RotationDegrees = new Vector3(-45.0f, 0, 0);
     }
 
     public override void _PhysicsProcess(double delta)
