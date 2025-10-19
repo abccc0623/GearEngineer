@@ -1,0 +1,11 @@
+[gd_scene load_steps=2 format=3 uid="uid://bnxbk5otvrkfs"]
+
+[ext_resource type="MeshLibrary" uid="uid://xerwg0udscec" path="res://GearEngineer/Asset/MeshLibrary/Wall.tres" id="1_7kxvf"]
+
+[node name="WallGrid" type="Node3D"]
+
+[node name="GridMap" type="GridMap" parent="."]
+mesh_library = ExtResource("1_7kxvf")
+data = {
+"cells": PackedInt32Array(0, 0, 1, 1, 0, 1, 2, 0, 1, 3, 0, 1, 0, 1, 5, 4, 2, 1441798, 7, 2, 1441798, 0, 5, 1441812, 3, 5, 1441812, 6, 5, 1441812)
+}

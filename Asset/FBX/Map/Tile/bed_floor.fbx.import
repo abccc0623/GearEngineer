@@ -3,13 +3,13 @@
 importer="scene"
 importer_version=1
 type="PackedScene"
-uid="uid://c4y5hnoexb6cr"
-path="res://.godot/imported/ceiling_tile.fbx-884142202971779a2ee93e958bbf3a3c.scn"
+uid="uid://cja2t54ftabjg"
+path="res://.godot/imported/bed_floor.fbx-8078a286bdd3667f5bca6c1c69c5ad1c.scn"
 
 [deps]
 
-source_file="res://GearEngineer/Asset/FBX/Map/Tile/ceiling_tile.fbx"
-dest_files=["res://.godot/imported/ceiling_tile.fbx-884142202971779a2ee93e958bbf3a3c.scn"]
+source_file="res://GearEngineer/Asset/FBX/Map/Tile/bed_floor.fbx"
+dest_files=["res://.godot/imported/bed_floor.fbx-8078a286bdd3667f5bca6c1c69c5ad1c.scn"]
 
 [params]
 
