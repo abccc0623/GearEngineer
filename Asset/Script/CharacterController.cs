@@ -10,7 +10,7 @@ public partial class CharacterController : CharacterBody3D
 	private CharacterBody3D body;
 	private static bool brakeInput = false;
 	
-	[Export] public float Speed = 3f;
+	[Export] public float Speed = 5f;
 	[Export] public float JumpTime = 0.0f;
 	public float Gravity = -9.81f;
 	

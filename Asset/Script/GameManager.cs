@@ -20,6 +20,7 @@ public partial class GameManager : Node
             var target = assetsManager.Get<PackedScene>(AssetKey.CharacterObject, playWeaponName);
             var character = (Node3D)target.Instantiate();
             CameraController cc = new CameraController();
+            cc.Name = "mainCamera";
             cc.target = character;
             
             currentScene.AddChild(character);

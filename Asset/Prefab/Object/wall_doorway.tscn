@@ -1,0 +1,80 @@
+[gd_scene load_steps=9 format=3 uid="uid://cdgt7eay4f1ik"]
+
+[ext_resource type="PackedScene" uid="uid://b4w5cjbwofpkl" path="res://GearEngineer/Asset/FBX/Map/Wall/wall_doorway.fbx" id="1_c3k67"]
+[ext_resource type="Script" uid="uid://dy7vre1vg0qw" path="res://GearEngineer/Asset/Script/Object/door.cs" id="2_6uoe7"]
+[ext_resource type="Material" uid="uid://b4rrp48yyafqf" path="res://GearEngineer/Asset/Material/BaseTile.tres" id="2_7rduf"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_c3k67"]
+size = Vector3(2, 3, 0.25)
+
+[sub_resource type="Animation" id="Animation_7rduf"]
+resource_name = "Open"
+tracks/0/type = "rotation_3d"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("wall_doorway/wall_doorway_door")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = PackedFloat32Array(0, 1, 0, 0, 0, 1, 0.23333333, 1, 0, -0.13052619, 0, 0.9914449, 0.4, 1, 0, 0.13052619, 0, 0.9914449, 1, 1, 0, 0.8660254, 0, -0.49999997)
+tracks/1/type = "rotation_3d"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("wall_doorway/AnimatableBody3D")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = PackedFloat32Array(0, 1, 0, 0, 0, 1, 0.24, 1, 0, -0.13052619, 0, 0.9914449, 0.42, 1, 0, 0.13052619, 0, 0.9914449, 1, 1, 0, 0.8660254, 0, -0.49999997)
+
+[sub_resource type="Animation" id="Animation_6uoe7"]
+length = 0.001
+tracks/0/type = "rotation_3d"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("wall_doorway/wall_doorway_door")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = PackedFloat32Array(0, 1, 0, 0, 0, 1)
+
+[sub_resource type="Animation" id="Animation_awb1o"]
+resource_name = "Close"
+tracks/0/type = "rotation_3d"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("wall_doorway/wall_doorway_door")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = PackedFloat32Array(0, 1, 0, 0.8660254, 0, -0.49999997, 1, 1, 0, 0, 0, 1)
+tracks/1/type = "rotation_3d"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("wall_doorway/AnimatableBody3D")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = PackedFloat32Array(0, 1, 0, 0.8660254, 0, -0.49999997, 1, 1, 0, 0, 0, 1)
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_6uoe7"]
+_data = {
+&"Close": SubResource("Animation_awb1o"),
+&"Open": SubResource("Animation_7rduf"),
+&"RESET": SubResource("Animation_6uoe7")
+}
+
+[node name="wall_doorway" instance=ExtResource("1_c3k67")]
+script = ExtResource("2_6uoe7")
+
+[node name="wall_doorway" parent="." index="0"]
+material_override = ExtResource("2_7rduf")
+
+[node name="wall_doorway_door" parent="wall_doorway" index="0"]
+material_override = ExtResource("2_7rduf")
+
+[node name="AnimatableBody3D" type="AnimatableBody3D" parent="wall_doorway" index="1"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.8200989, 0, 0)
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="wall_doorway/AnimatableBody3D" index="0"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.78, 1.25, 0)
+shape = SubResource("BoxShape3D_c3k67")
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="." index="1"]
+libraries = {
+&"": SubResource("AnimationLibrary_6uoe7")
+}

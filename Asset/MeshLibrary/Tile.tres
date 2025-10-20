@@ -1,4 +1,4 @@
-[gd_resource type="MeshLibrary" load_steps=142 format=4 uid="uid://pvcuuq3n0prj"]
+[gd_resource type="MeshLibrary" load_steps=143 format=4 uid="uid://pvcuuq3n0prj"]
 
 [ext_resource type="Material" uid="uid://b4rrp48yyafqf" path="res://GearEngineer/Asset/Material/BaseTile.tres" id="1_xqeh5"]
 
@@ -843,6 +843,9 @@ data = {
 
 [sub_resource type="ImageTexture" id="ImageTexture_w3mwi"]
 image = SubResource("Image_6aq87")
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_c54bj"]
+size = Vector3(2, 1, 2)
 
 [sub_resource type="ArrayMesh" id="ArrayMesh_e6rdg"]
 _surfaces = [{
@@ -1763,7 +1766,7 @@ item/25/name = "floor_tile_small_broken_A"
 item/25/mesh = SubResource("ArrayMesh_ivtc4")
 item/25/mesh_transform = Transform3D(100, 0, 0, 0, 100, 0, 0, 0, 100, 0, 0, -1)
 item/25/mesh_cast_shadow = 1
-item/25/shapes = []
+item/25/shapes = [SubResource("BoxShape3D_c54bj"), Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0)]
 item/25/navigation_mesh_transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0)
 item/25/navigation_layers = 1
 item/25/preview = SubResource("ImageTexture_w3mwi")
