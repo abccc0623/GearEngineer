@@ -1,0 +1,12 @@
+[gd_scene load_steps=3 format=3 uid="uid://qcugv20hfi2q"]
+
+[ext_resource type="Script" uid="uid://3i7xh2bvtu20" path="res://GearEngineer/Asset/Script/CreateMap/BSPGenerate.cs" id="1_emgka"]
+
+[sub_resource type="BoxMesh" id="BoxMesh_kq4if"]
+
+[node name="CreateMapTest" type="Node3D"]
+
+[node name="Root" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 10.634743, 0, -7.670609)
+mesh = SubResource("BoxMesh_kq4if")
+script = ExtResource("1_emgka")

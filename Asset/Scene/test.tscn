@@ -1,0 +1,14 @@
+[gd_scene load_steps=2 format=3 uid="uid://gcyx7lqt20v6"]
+
+[ext_resource type="Script" uid="uid://cgmw7twhfy7fi" path="res://GearEngineer/Asset/Script/CreateMap/DungeonGenerate.cs" id="1_wbleo"]
+
+[node name="Test" type="Node3D"]
+
+[node name="Camera3D" type="Camera3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, -4.371139e-08, 1, 0, -1, -4.371139e-08, 150, 210, 150)
+
+[node name="Node3D" type="Node3D" parent="."]
+script = ExtResource("1_wbleo")
+Vertical = 300.0
+Horizontal = 300.0
+minRoomSize = 3200

@@ -1,8 +1,7 @@
-[gd_scene load_steps=6 format=3 uid="uid://bqcme7rnmspxl"]
+[gd_scene load_steps=5 format=3 uid="uid://bqcme7rnmspxl"]
 
 [ext_resource type="Script" uid="uid://b6a8e4nbq5g4h" path="res://GearEngineer/Asset/Script/InGameSetting.cs" id="1_6ea1u"]
-[ext_resource type="PackedScene" uid="uid://ospwkunfl4qr" path="res://GearEngineer/Asset/Prefab/Map/StartPoint.tscn" id="2_w2h43"]
-[ext_resource type="PackedScene" uid="uid://deo0u0gvgpea" path="res://GearEngineer/Asset/Prefab/Map/Passageway.tscn" id="3_s4g8g"]
+[ext_resource type="Script" uid="uid://cgmw7twhfy7fi" path="res://GearEngineer/Asset/Script/CreateMap/DungeonGenerate.cs" id="2_w2h43"]
 
 [sub_resource type="Environment" id="Environment_s4g8g"]
 ambient_light_source = 2
@@ -42,8 +41,8 @@ camera_attributes = SubResource("CameraAttributesPractical_w2h43")
 transform = Transform3D(0.85264015, -0.4002571, 0.3358556, 0, 0.64278764, 0.76604444, -0.52249855, -0.6531603, 0.54806656, 0, 5.8783298, 0)
 light_color = Color(1, 0.9254902, 0.76862746, 1)
 
-[node name="StartMap" parent="." instance=ExtResource("2_w2h43")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 1)
-
-[node name="StartMap2" parent="." instance=ExtResource("3_s4g8g")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 30.546186, 0, 1.0781701)
+[node name="Node3D" type="Node3D" parent="."]
+script = ExtResource("2_w2h43")
+Vertical = 300.0
+Horizontal = 300.0
+minRoomSize = 3000
