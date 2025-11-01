@@ -1,24 +1,25 @@
 using Godot;
 using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Runtime.InteropServices;
-using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using GearEngineer.GearEngineer.Asset.Script.CreateMap;
 
 public partial class DungeonGenerate : Node3D
 {
+	private AStar astar = new AStar();
 	private MeshLibrary wall;
 	private MeshLibrary tile;
 	[Export] private float Vertical;
 	[Export] private float Horizontal;
 	[Export] private int minRoomSize;
+	[Export] private int roomCount;
 	private BSPNode treeNode;
 
 	public static List<RoomNode> roomList = new List<RoomNode>();
 	public static Dictionary<BSPNode,List<BSPNode>> BSPTreeNodes = new Dictionary<BSPNode,List<BSPNode>>();
 	private HashSet<RoomNode> MST = new HashSet<RoomNode>();
+	public List<Vector2I> path = new List<Vector2I>();
+	
 	public override async  void _Ready()
 	{
 		CallDeferred(nameof(GenerateTree));
@@ -31,30 +32,45 @@ public partial class DungeonGenerate : Node3D
 			roomList[i].Draw();
 		}
 
-		//for (var i = 0; i < MST.Count; i++)
+		DebugDraw3D.DrawSphere(new Vector3(0,0,0) ,0.5f ,new Color(0,1,0));
+		DebugDraw3D.DrawSphere(new Vector3(10,0,10) ,0.5f ,new Color(0,1,0));
+		foreach (var astarNode in path)
+		{
+			DebugDraw3D.DrawSphere(new Vector3(astarNode.X,0,astarNode.Y),0.5f ,new Color(1,1,1));
+		}
+		//
+		//foreach (var astarNode in astar.openQueue)
 		//{
-		//	if(i + 1 >= MST.Count)break;
-		//	var v1 =MST.ElementAt(i).center;
-		//	var v2 =MST.ElementAt(i+1).center;
-		//	DebugDraw3D.DrawLine(new Vector3(v1.X,0,v1.Y),new Vector3(v2.X,0,v2.Y));
+		//	DebugDraw3D.DrawSphere(new Vector3(astarNode.x,0,astarNode.y),0.5f ,new Color(1,0,0));
 		//}
 	}
 
 	private void GenerateTree()
 	{
-		//BSP 노드를 생성
-		roomList = CreateBSPTree(out treeNode);
+		List<Vector2I> obstacleList = new List<Vector2I>();
+		obstacleList.Add(new Vector2I(3, 3));
+		obstacleList.Add(new Vector2I(5,5));
+		obstacleList.Add(new Vector2I(7, 7));
+		obstacleList.Add(new Vector2I(9, 9));
 		
-		//방의 위치만 따로 뺴와서 계산할수 있도록 리스트와 연결
-		var points = LinkPoints(roomList);
-
-		//생성된 방 기준으로 삼각형들을 생성
-		List<Triangle> triangleList =  DelaunayTriangulations(points);
-
-		////Room과 연결된 삼각형들을 대응시켜줌
-		LinkRooms(triangleList);
+		path = astar.FindPath4Dir(new Vector2I(0,0), new Vector2I(10,10),obstacleList);
+		
+		
+		//BSP 노드를 생성
+		//roomList = CreateBSPTree(out treeNode);
 		//
-		Prim(roomList);
+		////방의 위치만 따로 뺴와서 계산할수 있도록 리스트와 연결
+		//var points = LinkPoints(roomList);
+		//
+		////생성된 방 기준으로 삼각형들을 생성
+		//List<Triangle> triangleList =  DelaunayTriangulations(points);
+		//
+		//////Room과 연결된 삼각형들을 대응시켜줌
+		//LinkRooms(triangleList);
+		////
+		//Prim(roomList);
+		//
+		//CreateGroundCollider();
 	}
 
 	List<Vector2> LinkPoints(List<RoomNode> roomList)
@@ -88,6 +104,15 @@ public partial class DungeonGenerate : Node3D
 				}
 			}
 		}
+
+		Random rng = new Random();
+		int removeCount = roomCount + 1;
+		while (treeNodes.Count >= removeCount)
+		{
+			int value = rng.Next(0, treeNodes.Count);
+			treeNodes.RemoveAt(value);
+		}
+		
 		return treeNodes;
 	}
 	
@@ -110,8 +135,6 @@ public partial class DungeonGenerate : Node3D
 
 	void CreateGround(Vector3 position)
 	{
-		position.X += 0.5f;
-		position.Z += 0.5f;
 		MeshInstance3D instance = new MeshInstance3D();
 		AddChild(instance);
 		var rendom = GD.RandRange(0, 100);

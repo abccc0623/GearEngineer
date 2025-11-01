@@ -23,7 +23,7 @@ public partial class BSPNode : RefCounted
         this.minRoomSize = minRoomSize;
         this.rect = rect;
         PartitionPlane = Partition();
-        center = new Vector2(rect.Position.X + (rect.Size.X * 0.5f), rect.Position.Y  + (rect.Size.Y *0.5f));
+        center = new Vector2I( (int)(rect.Position.X + (rect.Size.X * 0.5f)), (int)(rect.Position.Y  + (rect.Size.Y *0.5f)));
         Split();
     }
 
@@ -48,12 +48,13 @@ public partial class BSPNode : RefCounted
     {
         DungeonGenerate.BSPTreeNodes.Add(this,null);
         
-        if(rect.Size.X * rect.Size.Y <= minRoomSize) return;
+       if(this is RoomNode ) return;
+        
         
         Rect2 childRect1 = new Rect2();
         Rect2 childRect2 = new Rect2();
-        float min = 0.3f;
-        float max = 0.7f;
+        float min = 0.4f;
+        float max = 0.6f;
         
         if (PartitionPlane == VERTICAL)
         {
@@ -65,8 +66,8 @@ public partial class BSPNode : RefCounted
         }
         
         List<BSPNode> children = new List<BSPNode>();
-        var node1 = (childRect1.Size.X * childRect1.Size.Y <= minRoomSize) ? new RoomNode(childRect1,minRoomSize) : new BSPNode(childRect1,minRoomSize);
-        var node2 = (childRect2.Size.X * childRect2.Size.Y <= minRoomSize) ? new RoomNode(childRect2,minRoomSize) : new BSPNode(childRect2,minRoomSize);
+        var node1 = (rect.Size.X < minRoomSize || rect.Size.Y < minRoomSize) ? new RoomNode(childRect1,minRoomSize) : new BSPNode(childRect1,minRoomSize);
+        var node2 = (rect.Size.X < minRoomSize || rect.Size.Y < minRoomSize) ? new RoomNode(childRect2,minRoomSize) : new BSPNode(childRect2,minRoomSize);
         children.Add(node1);          
         children.Add(node2);
         DungeonGenerate.BSPTreeNodes[this] = children;
@@ -131,7 +132,7 @@ public partial class BSPNode : RefCounted
             childRect2 = new Rect2(rect.Position.X + splitWidth, rect.Position.Y, rect.Size.X - splitWidth, rect.Size.Y);
                 
             var value = AspectRatio(childRect1.Size.X ,childRect1.Size.Y);
-            if(value >= 0.50f && value <= 1.5f)break;
+            if(value >= 0.750f && value <= 1.25f)break;
             min += 0.025f;
             max -= 0.025f;
             if (min >= max) break;
