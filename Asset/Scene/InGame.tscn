@@ -43,6 +43,7 @@ light_color = Color(1, 0.9254902, 0.76862746, 1)
 
 [node name="Node3D" type="Node3D" parent="."]
 script = ExtResource("2_w2h43")
-Vertical = 300.0
-Horizontal = 300.0
-minRoomSize = 3000
+Vertical = 100
+Horizontal = 100
+minRoomSize = 50
+minRoomCount = 15
